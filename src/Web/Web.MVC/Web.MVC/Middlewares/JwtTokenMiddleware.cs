@@ -14,18 +14,21 @@ namespace Web.MVC.Middlewares
         private readonly RequestDelegate next;
         private readonly IHttpClientFactory httpClientFactory;
         private readonly string url;
+        private readonly ILogger<JwtTokenMiddleware> logger;
 
-        public JwtTokenMiddleware(RequestDelegate next, IHttpClientFactory httpClientFactory, IConfiguration config)
+        public JwtTokenMiddleware(RequestDelegate next, IHttpClientFactory httpClientFactory, IConfiguration config, ILogger<JwtTokenMiddleware> logger)
         {
             this.next = next;
             this.httpClientFactory = httpClientFactory;
             url = (string.IsNullOrEmpty(config["Url:Port"]))
                 ? $"{config["Url:Protocol"]}://{config["Url:HostName"]}" : $"{config["Url:Protocol"]}://{config["Url:HostName"]}:{config["Url:Port"]}";
+            this.logger = logger;
         }
 
         public async Task InvokeAsync(HttpContext context)
         {
             context.Request.Cookies.TryGetValue("accessToken", out var accessToken);
+            logger.LogInformation($"AccessToken is null: {accessToken == null} {accessToken}");
             if (accessToken != null)
             {
                 var tokenHandler = new JwtSecurityTokenHandler();
@@ -39,12 +42,16 @@ namespace Web.MVC.Middlewares
                     var response = await httpClient.GetAsync(
                         $"{url}/api/User/GetByUserName?userName={currentUserName}");
                     if (response.StatusCode == HttpStatusCode.BadRequest)
+                    {
+                        context.Response.Cookies.Delete("accessToken");
                         await next(context);
+                    }
                     
 
                     var currentUser = await response.Content.ReadFromJsonAsync<GetUserResponse>();
                     if (currentUser.RefreshTokenExpiryTime < DateTime.UtcNow)
                     {
+                        context.Response.Cookies.Delete("accessToken");
                         await next(context);
                     }
 
