@@ -203,9 +203,9 @@ services:
         - 5432
       environment:
         POSTGRES_USER: gen_user
-        POSTGRES_PASSWORD: GQvo37QnTm61n
+        POSTGRES_PASSWORD: SxjYtQ4vdG6
         POSTGRES_DB: BookmarkMicroservice
-        POSTGRES_HOST: 176.124.212.94
+        POSTGRES_HOST: d293f6350ae6810ca35a2783.twc1.net
       volumes: 
         - postgres-bookmark-data:/var/lib/postgresql/data
 
@@ -216,9 +216,9 @@ services:
         - 5432
       environment:
         POSTGRES_USER: gen_user
-        POSTGRES_PASSWORD: GQvo37QnTm61n
+        POSTGRES_PASSWORD: SxjYtQ4vdG6
         POSTGRES_DB: BanHistoryMicroservice
-        POSTGRES_HOST: 176.124.212.94
+        POSTGRES_HOST: d293f6350ae6810ca35a2783.twc1.net
       volumes: 
         - postgres-banhistory-data:/var/lib/postgresql/data
 
@@ -229,9 +229,9 @@ services:
         - 5432
       environment:
         POSTGRES_USER: gen_user
-        POSTGRES_PASSWORD: GQvo37QnTm61n
+        POSTGRES_PASSWORD: SxjYtQ4vdG6
         POSTGRES_DB: ReportMicroservice
-        POSTGRES_HOST: 176.124.212.94
+        POSTGRES_HOST: d293f6350ae6810ca35a2783.twc1.net
       volumes: 
         - postgres-report-data:/var/lib/postgresql/data
 
@@ -242,9 +242,9 @@ services:
         - 5432
       environment:
         POSTGRES_USER: gen_user
-        POSTGRES_PASSWORD: GQvo37QnTm61n
+        POSTGRES_PASSWORD: SxjYtQ4vdG6
         POSTGRES_DB: CommentMicroservice
-        POSTGRES_HOST: 176.124.212.94
+        POSTGRES_HOST: d293f6350ae6810ca35a2783.twc1.net
       volumes: 
         - postgres-comment-data:/var/lib/postgresql/data
 
@@ -255,9 +255,9 @@ services:
         - 5432
       environment:
         POSTGRES_USER: gen_user
-        POSTGRES_PASSWORD: GQvo37QnTm61n
+        POSTGRES_PASSWORD: SxjYtQ4vdG6
         POSTGRES_DB: DiscussionMicroservice
-        POSTGRES_HOST: 176.124.212.94
+        POSTGRES_HOST: d293f6350ae6810ca35a2783.twc1.net
       volumes: 
         - postgres-discussion-data:/var/lib/postgresql/data
 
@@ -268,9 +268,9 @@ services:
         - 5432
       environment:
         POSTGRES_USER: gen_user
-        POSTGRES_PASSWORD: GQvo37QnTm61n
+        POSTGRES_PASSWORD: SxjYtQ4vdG6
         POSTGRES_DB: TopicMicroservice
-        POSTGRES_HOST: 176.124.212.94
+        POSTGRES_HOST: d293f6350ae6810ca35a2783.twc1.net
       volumes: 
         - postgres-topic-data:/var/lib/postgresql/data
 
@@ -281,9 +281,9 @@ services:
         - 5432
        environment:
          POSTGRES_USER: gen_user
-         POSTGRES_PASSWORD: GQvo37QnTm61n
+         POSTGRES_PASSWORD: SxjYtQ4vdG6
          POSTGRES_DB: RegisterMicroservice
-         POSTGRES_HOST: 176.124.212.94
+         POSTGRES_HOST: d293f6350ae6810ca35a2783.twc1.net
        volumes: 
          - postgres-register-data:/var/lib/postgresql/data
 
@@ -294,9 +294,9 @@ services:
         - 5432
        environment:
          POSTGRES_USER: gen_user
-         POSTGRES_PASSWORD: GQvo37QnTm61n
+         POSTGRES_PASSWORD: SxjYtQ4vdG6
          POSTGRES_DB: UserMicroservice
-         POSTGRES_HOST: 176.124.212.94
+         POSTGRES_HOST: d293f6350ae6810ca35a2783.twc1.net
        volumes: 
          - postgres-user-data:/var/lib/postgresql/data
 
@@ -307,9 +307,9 @@ services:
         - 5432
       environment:
         POSTGRES_USER: gen_user
-        POSTGRES_PASSWORD: GQvo37QnTm61n
+        POSTGRES_PASSWORD: SxjYtQ4vdG6
         POSTGRES_DB: Hangfire
-        POSTGRES_HOST: 176.124.212.94
+        POSTGRES_HOST: d293f6350ae6810ca35a2783.twc1.net
       volumes: 
         - postgres-hangfire-data:/var/lib/postgresql/data
 
@@ -318,10 +318,10 @@ services:
         hostname: rabbitmq
         restart: always
         environment:
-            - RABBITMQ_HOST=103.74.93.48
+            - RABBITMQ_HOST=89.169.46.80
             - RABBITMQ_PORT=5672
             - RABBITMQ_USERNAME=gen_user
-            - RABBITMQ_PASSWORD=zPJaTQ1BIeY0cf
+            - RABBITMQ_PASSWORD=S6PWcaShQ
             - RABBITMQ_VHOST=default_vhost
         volumes:
             - ./rabbitmq:/var/lib/rabbitmq/mnesia
@@ -363,10 +363,10 @@ services:
         - traefik.http.routers.grafana-https.rule=Host(`grafana.forumium.site`)
       environment:
         - GF_DATABASE_TYPE=postgres
-        - GF_DATABASE_HOST=176.124.212.94
+        - GF_DATABASE_HOST=SxjYtQ4vdG6
         - GF_DATABASE_NAME=DicussionForumGrafana
         - GF_DATABASE_USER=gen_user
-        - GF_DATABASE_PASSWORD=GQvo37QnTm61n
+        - GF_DATABASE_PASSWORD=d293f6350ae6810ca35a2783.twc1.net
         - GF_SECURITY_ADMIN_USER=admin
         - GF_SECURITY_ADMIN_PASSWORD=changeit
       volumes:
@@ -378,7 +378,7 @@ services:
       environment:
         - POSTGRES_DB=DicussionForumGrafana
         - POSTGRES_USER=gen_user
-        - POSTGRES_PASSWORD=GQvo37QnTm61n
+        - POSTGRES_PASSWORD=SxjYtQ4vdG6
       volumes:
         - postgres-grafana-data:/var/lib/postgresql/data
       
