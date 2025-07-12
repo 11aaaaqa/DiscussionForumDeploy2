@@ -25,17 +25,15 @@ namespace RegisterMicroservice.Api.Controllers
         private readonly ITokenService tokenService;
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly IPublishEndpoint publishEndpoint;
-        private readonly ILogger<UserController> logger;
 
         public UserController(UserManager<User> userManager, IEmailSender emailSender, ITokenService tokenService,
-            RoleManager<IdentityRole> roleManager, IPublishEndpoint publishEndpoint, ILogger<UserController> logger)
+            RoleManager<IdentityRole> roleManager, IPublishEndpoint publishEndpoint)
         {
             this.userManager = userManager;
             this.emailSender = emailSender;
             this.tokenService = tokenService;
             this.roleManager = roleManager;
             this.publishEndpoint = publishEndpoint;
-            this.logger = logger;
         }
 
         [HttpGet("GetById")]
@@ -146,19 +144,14 @@ namespace RegisterMicroservice.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> LogUserOutAsync(string userId)
         {
-            logger.LogCritical("LogUserOut method start working");
             var user = await userManager.FindByIdAsync(userId);
 
             if (user == null)
                 return NotFound();
 
-            logger.LogCritical("User has been found");
-
             user.RefreshToken = null;
             user.RefreshTokenExpiryTime = new DateTime();
             await userManager.UpdateAsync(user);
-
-            logger.LogCritical("Refresh token has been reset");
 
             return Ok();
         }

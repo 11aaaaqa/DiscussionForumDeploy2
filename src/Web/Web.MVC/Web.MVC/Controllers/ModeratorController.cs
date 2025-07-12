@@ -35,15 +35,12 @@ namespace Web.MVC.Controllers
         private static readonly Counter RejectedCommentsCounter = Metrics.CreateCounter(
             "rejected_comments", "Number of rejected comments.");
 
-        private readonly ILogger<ModeratorController> logger;
-
         public ModeratorController(IHttpClientFactory httpClientFactory, IReportService reportService, ISuggestionService suggestionService,
-            IConfiguration config, ILogger<ModeratorController> logger)
+            IConfiguration config)
         {
             this.httpClientFactory = httpClientFactory;
             this.reportService = reportService;
             this.suggestionService = suggestionService;
-            this.logger = logger;
             url = (string.IsNullOrEmpty(config["Url:Port"]))
                 ? $"{config["Url:Protocol"]}://{config["Url:HostName"]}" : $"{config["Url:Protocol"]}://{config["Url:HostName"]}:{config["Url:Port"]}";
         }
@@ -614,7 +611,6 @@ namespace Web.MVC.Controllers
         [HttpPost]
         public async Task<IActionResult> ChangeUserRoles(string aspNetUserId, string returnUrl, List<CheckBoxUserRoleDto> userRoles)
         {
-            logger.LogCritical("Change user roles post method start working");
             var selectedUserRolesCheckBox = userRoles.Where(x => x.IsChecked).ToList();
             var selectedUserRoles = new List<string>();
             foreach (var selectedUserRoleCheckBox in selectedUserRolesCheckBox)
@@ -628,10 +624,7 @@ namespace Web.MVC.Controllers
             var response = await httpClient.PostAsync($"{url}/api/User/AddUserToRoles", jsonContent);
             if (!response.IsSuccessStatusCode) return View("ActionError");
 
-            logger.LogCritical("User roles has been successfully updated");
-
             var resetUserRefreshTokenResponse = await httpClient.GetAsync($"{url}/api/User/LogUserOut?userId={aspNetUserId}");
-            logger.LogCritical("User refresh token has been successfully reset");
             if (!resetUserRefreshTokenResponse.IsSuccessStatusCode) return View("ActionError");
 
             if (!string.IsNullOrEmpty(returnUrl))
