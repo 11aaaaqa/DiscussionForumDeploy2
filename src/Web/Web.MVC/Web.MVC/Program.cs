@@ -70,10 +70,9 @@ app.UseForwardedHeaders(new ForwardedHeadersOptions
     ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
 });
 
-app.UseMetricServer();
-app.UseHttpMetrics();
+//app.UseMetricServer();
+//app.UseHttpMetrics();
 
-//app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
