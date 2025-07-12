@@ -146,19 +146,19 @@ namespace RegisterMicroservice.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> LogUserOutAsync(string userId)
         {
-            logger.LogInformation("LogUserOut method start working");
+            logger.LogCritical("LogUserOut method start working");
             var user = await userManager.FindByIdAsync(userId);
 
             if (user == null)
                 return NotFound();
 
-            logger.LogInformation("User has been found");
+            logger.LogCritical("User has been found");
 
             user.RefreshToken = null;
             user.RefreshTokenExpiryTime = new DateTime();
             await userManager.UpdateAsync(user);
 
-            logger.LogInformation("Refresh token has been reset");
+            logger.LogCritical("Refresh token has been reset");
 
             return Ok();
         }
