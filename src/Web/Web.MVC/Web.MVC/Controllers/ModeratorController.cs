@@ -624,6 +624,9 @@ namespace Web.MVC.Controllers
             var response = await httpClient.PostAsync($"{url}/api/User/AddUserToRoles", jsonContent);
             if (!response.IsSuccessStatusCode) return View("ActionError");
 
+            var resetUserRefreshTokenResponse = await httpClient.GetAsync($"{url}/api/User/LogUserOut?userId={aspNetUserId}");
+            if (!resetUserRefreshTokenResponse.IsSuccessStatusCode) return View("ActionError");
+
             if (!string.IsNullOrEmpty(returnUrl))
                 return LocalRedirect(returnUrl);
 
