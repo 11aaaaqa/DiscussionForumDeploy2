@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using System.Text.Json;
+using System.Web;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Web.MVC.Constants;
@@ -88,7 +89,7 @@ namespace Web.MVC.Controllers
                 if (isUserBanned) return View("ReportBanned");
 
                 var userResponse = await httpClient.GetAsync(
-                    $"{url}/api/profile/User/GetUserByUserName/{model.ReportedUserName}");
+                    $"{url}/api/profile/User/GetUserByUserName?userName={HttpUtility.UrlEncode(model.ReportedUserName)}");
                 if (!userResponse.IsSuccessStatusCode) return View("ActionError");
                 var user = await userResponse.Content.ReadFromJsonAsync<CustUserResponse>();
 

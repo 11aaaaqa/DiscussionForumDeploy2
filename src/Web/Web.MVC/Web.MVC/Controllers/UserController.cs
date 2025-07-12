@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Text;
 using System.Text.Json;
+using System.Web;
 using GeneralClassesLib.ApiResponses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -33,7 +34,7 @@ namespace Web.MVC.Controllers
         public async Task<IActionResult> GetUser(string userName)
         {
             using HttpClient httpClient = httpClientFactory.CreateClient();
-            var response = await httpClient.GetAsync($"{url}/api/profile/User/GetUserByUserName/{userName}");
+            var response = await httpClient.GetAsync($"{url}/api/profile/User/GetUserByUserName?userName={HttpUtility.UrlEncode(userName)}");
             if (!response.IsSuccessStatusCode) return View("ActionError");
 
             var user = await response.Content.ReadFromJsonAsync<UserResponse>();

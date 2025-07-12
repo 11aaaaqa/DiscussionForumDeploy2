@@ -28,7 +28,7 @@ namespace UserMicroservice.Api.Controllers
             this.checkForNormalized = checkForNormalized;
         }
 
-        [Route("GetUserByUserName/{userName}")]
+        [Route("GetUserByUserName")]
         [HttpGet]
         public async Task<IActionResult> GetUserByUserNameAsync(string userName)
         {
