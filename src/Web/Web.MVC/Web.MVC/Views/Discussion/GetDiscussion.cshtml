@@ -11,7 +11,7 @@
     <p>@ViewBag.Content</p>
 
     <p>Создано: <a class="discussion-created-by" asp-controller="User" asp-action="GetUser" asp-route-userName="@ViewBag.CreatedBy">@ViewBag.CreatedBy</a></p>
-    <p>Дата создания: @ViewBag.CreatedAt</p>
+    <p>Дата создания: @ViewBag.CreatedAt.ToString("dd.MM.yyyy")</p>
 
     <div class="discussion-additional-content">
         <div class="rating">
@@ -121,7 +121,7 @@
                     returnUrl = Context.Request.Path;
                 }
                 <div class="comment">
-                    <p><a class="created-by-comment" asp-controller="User" asp-action="GetUser" asp-route-userName="@comment.CreatedBy">@comment.CreatedBy</a> в @comment.CreatedDate</p>
+                    <p><a class="created-by-comment" asp-controller="User" asp-action="GetUser" asp-route-userName="@comment.CreatedBy">@comment.CreatedBy</a> в @comment.CreatedDate.ToString("hh:mm dd.MM.yyyy")</p>
                     @if (comment.RepliedOnCommentId is not null)
                     {
                         <div class="comment-replying-content">
